@@ -1,0 +1,75 @@
+<pre>
+  BIP: xxxx
+  Title: Shamir's Secret-Sharing
+  Author: Yancy Ribbens <yancy.ribbens@gmail.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-xxxx
+  Status: Draft
+  Type: Process
+  Created: 2019-09-06
+</pre>
+
+==Abstract==
+
+This BIP describes a standard and interoperable implementation of Shamir's secret-sharing (SSS). SSS splits a master secret, such as the master seed *S* for Hierarchical Deterministic Wallets described in [BIP-0032](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki), into unique parts which can be distributed among participants. A specified minimum number of parts is required to be supplied in order to reconstruct the original secret. Knowledge of fewer than the required number of parts does not leak information about the master secret.
+
+==Notation==
+
+Notation        | Meaning
+----------------|---------------------------------------------------------------
+*G*             | total number of groups, a positive integer, 1 &le; *G* &le; 16
+*N<sub>i</sub>* | total number of members in group *i*, a positive integer, 1 &le; *N<sub>i</sub>* &le; 16
+*GT*            | group threshold, a positive integer, 1 &le; *GT* &le; *G*
+*T<sub>i</sub>* | member threshold for group *i*, a positive integer, 1 &le; *T<sub>i</sub>* &le; *N<sub>i</sub>*
+*id*            | random identifier, a 15-bit positive integer
+*MS*            | master secret, a string
+*n*             | length of the master secret in bytes
+*EMS*           | encrypted master secret, a string
+&#124;&#124;    | concatenation operator
+xor             | bit-wise exclusive-or of two strings
+
+==Motivation==
+
+Preservation of digital assets is generally important and it is especially important in the case of decentralized payments systems such as Bitcoin, where there is no recourse in the case of loss of an asset. The usual approach to protecting digital assets is redundant backups, but when the asset itself is of significant and liquidable value, there is a substantial risk of the backup holder absconding with the asset. Shamir's secret-sharing provides a better mechanism for backing up secrets by distributing custodianship among a number of trusted parties in a manner that can prevent loss even if one or a few of those parties become compromised.
+
+However, the lack of SSS standardization to date presents a risk of being unable to perform secret recovery in the future should the tooling change. Therefore, we propose standardizing SSS so that SLIP-0039 compatible implementations will be interoperable.
+
+==BIP Editors==
+
+The current BIP editor is Luke Dashjr who can be contacted at [[mailto:yancy.ribbens@gmail.com|yancy.ribbens@gmail.com]].
+
+==BIP Editor Responsibilities & Workflow==
+
+The BIP editor subscribes to the Bitcoin development mailing list. All BIP-related correspondence should be sent (or CC'd) to luke_bipeditor@dashjr.org.
+
+For each new BIP that comes in an editor does the following:
+
+* Read the BIP to check if it is ready: sound and complete. The ideas must make technical sense, even if they don't seem likely to be accepted.
+* The title should accurately describe the content.
+* Edit the BIP for language (spelling, grammar, sentence structure, etc.), markup (for reST BIPs), code style (examples should match BIP 8 & 7).
+
+If the BIP isn't ready, the editor will send it back to the author for revision, with specific instructions.
+
+Once the BIP is ready for the repository it should be submitted as a "pull request" to the [https://github.com/bitcoin/bips bitcoin/bips] repository on GitHub where it may get further feedback.
+
+The BIP editor will:
+
+* Assign a BIP number (almost always just the next available number, but sometimes it's a special/joke number, like 666 or 3141) in the pull request comments.
+
+* Merge the pull request when the author is ready (allowing some time for further peer review).
+
+* List the BIP in [[README.mediawiki]]
+
+* Send email back to the BIP author with next steps (post to bitcoin-dev mailing list).
+
+The BIP editors are intended to fulfill administrative and editorial responsibilities. The BIP editors monitor BIP changes, and correct any structure, grammar, spelling, or markup mistakes we see.
+
+==History==
+
+This document was derived heavily from Python's PEP-0001. In many places text was simply copied and modified. Although the PEP-0001 text was written by Barry Warsaw, Jeremy Hylton, and David Goodger, they are not responsible for its use in the Bitcoin Improvement Process, and should not be bothered with technical questions specific to Bitcoin or the BIP process. Please direct all comments to the BIP editors or the Bitcoin development mailing list.
+
+==Changelog==
+
+10 Oct 2015 - Added clarifications about submission process and BIP number assignment.
+
+01 Jan 2016 - Clarified early stages of BIP idea championing, collecting community feedback, etc.
